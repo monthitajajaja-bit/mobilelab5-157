@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mobilelab5/models/foodmenu.dart';
+import 'package:mobilelab5/screen/addfrom.dart';
+
+class Item extends StatefulWidget {
+  const Item({super.key});
+  
+  @override
+  State<Item> createState() => _ItemState();
+}
+
+class _ItemState extends State<Item> {
+  
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: emp.length,
+            itemBuilder: (context,index){
+              //final menu = emp[index];
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color:emp[index].background,
+                ),
+                margin: const EdgeInsets.symmetric(horizontal: 2,vertical: 3),
+                padding: const EdgeInsets.all(30),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(emp[index].name,
+                      //style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+                      style: GoogleFonts.itim(
+                        textStyle: const TextStyle(
+                          fontSize: 25, 
+                          fontWeight: FontWeight.bold,
+                        ),),
+                      ),
+                      Text("ประเภทอาหาร : ${emp[index].type}",
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.bold),),
+                      Text("วัถุดิบ : ${emp[index].component}",
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.bold),),
+                      Text("ราคา : ${emp[index].price} บาท",
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),),
+                    ],
+                  ),
+                  Image.asset(
+                    emp[index].foodpic.image,
+                    width: 80,
+                    height: 80,
+                  )
+                ],
+                ),
+              );
+            }
+          ),
+        ),
+        SizedBox(
+          width: 100,
+          height: 80,
+          child: IconButton(
+            icon: const Icon(Icons.add, size: 50, color: Colors.amber),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AddForm()),
+              );
+            },
+          ),
+        )
+      ],
+    );
+  }
+}
